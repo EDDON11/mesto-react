@@ -67,6 +67,7 @@ export default class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
+
   deleteCard(_id) {
     return fetch(`${this._url}cards/${_id}`, {
       method: "DELETE",
