@@ -12,7 +12,8 @@
 @import url(../src/block/element/__like/_active/element__like_active.css);
 @import url(../src/block/popup/__error/popup__error.css);
 @import url(../src/block/popup/__error/_active/popup__error_active.css);
-
+@import url(../src/block/element/__delete-button/_hidden/element__delete-button_hidden.css);
+@import url(../src/block/element/__delete-button/_visible/element__delete-button_visible.css);
 
 
 

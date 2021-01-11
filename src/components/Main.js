@@ -1,54 +1,39 @@
 import React from "react";
-import { api } from "../utils/Api.js";
 import Card from "./Card.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  const [userName, setUserName] = React.useState("");
-  const [userJob, setUserJob] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => {
-        setUserName(userData.name);
-        setUserJob(userData.about);
-        setUserAvatar(userData.avatar);
-      })
-      .catch((err) => {
-        console.log("Ошибка:", err);
-      });
-  }, []);
-
-  React.useEffect(() => {
-    api
-      .getInitialCard()
-      .then((cardData) => {
-        setCards(cardData);
-      })
-      .catch((err) => {
-        console.log("Ошибка:", err);
-      });
-  }, []);
+function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  cards,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+}) {
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__avatar-container">
-          <img className="profile__avatar" src={userAvatar} alt="Аватар" />
+          <img
+            className="profile__avatar"
+            src={currentUser.avatar}
+            alt="Аватар"
+          />
           <button className="profile__avatar-button" onClick={onEditAvatar} />
         </div>
         <div className="profile__info">
           <div className="profile__info-name">
-            <h1 className="profile__title">{userName}</h1>
+            <h1 className="profile__title">{currentUser.name}</h1>
             <button
               type="button"
               className="profile__edit-button"
               onClick={onEditProfile}
             />
           </div>
-          <p className="profile__subtitle">{userJob}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button
           type="button"
@@ -60,6 +45,8 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
         {cards.map((card) => (
           <Card
             onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onCardDelete={onCardDelete}
             key={card._id}
             card={card}
             link={card.link}

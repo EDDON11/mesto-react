@@ -53,9 +53,9 @@ export default class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
-  putLikes(_id) {
+  changeLikeCardStatus(_id, isLiked) {
     return fetch(`${this._url}cards/likes/${_id}`, {
-      method: "PUT",
+      method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
       body: JSON.stringify({
         _id,
@@ -67,20 +67,7 @@ export default class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
-  deleteLikes(_id) {
-    return fetch(`${this._url}cards/likes/${_id}`, {
-      method: "DELETE",
-      headers: this._headers,
-      body: JSON.stringify({
-        _id,
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
+
   deleteCard(_id) {
     return fetch(`${this._url}cards/${_id}`, {
       method: "DELETE",

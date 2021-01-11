@@ -1,6 +1,14 @@
 import React from "react";
 
-const PopupWithForm = ({ title, name, onClose, button, isOpen, children }) => {
+const PopupWithForm = ({
+  title,
+  name,
+  onClose,
+  button,
+  isOpen,
+  children,
+  onSubmit,
+}) => {
   return (
     <div className={`popup popup_${name} ${isOpen ? "popup_open" : ""}`}>
       <div className="popup__content">
@@ -15,6 +23,7 @@ const PopupWithForm = ({ title, name, onClose, button, isOpen, children }) => {
             className={`popup__form popup__form_${name}`}
             method="post"
             name={name}
+            onSubmit={onSubmit}
             noValidate
           >
             {children}
